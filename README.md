@@ -1,4 +1,4 @@
-# The Most Useless Life Hacks  
+## The Most Useless Life Hacks  
 
 ## Project Overview  
 The Most Useless Life Hacks is a crowdsourced platform where users submit so-called "life hacks" that are actually useless or even make life harder. Other users can vote on the worst hacks, comment on submissions, and see a leaderboard of the most ridiculous ones.  
