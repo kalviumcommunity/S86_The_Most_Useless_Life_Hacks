@@ -1,0 +1,12 @@
+{
+  "name": "s86_the_most_useless_life_hacks",
+  "version": "1.0.0",
+  "description": "The Most Useless Life Hacks is a crowdsourced platform where users submit so-called \"life hacks\" that are actually useless or even make life harder. Other users can vote on the worst hacks, comment on submissions, and see a leaderboard of the most ridiculous ones.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
