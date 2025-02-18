@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Ping API Request",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
