@@ -1,41 +1,17 @@
-require("dotenv").config(); // Load environment variables
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const routes = require("./routes");
+require("dotenv").config(); // make sure this is at the top
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(cors());
+app.use(express.json());
 
-// Middleware
-app.use(express.json()); // Parse JSON requests
-app.use(cors()); // Enable CORS
+app.use("/", routes); // plug in the routes
 
-// Check if MONGO_URI is defined
-if (!process.env.MONGO_URI) {
-  console.error("❌ Error: MONGO_URI is not defined in .env file!");
-  process.exit(1);
-}
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("DB connection error:", err));
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err);
-    process.exit(1);
-  });
-
-// Import and use routes
-const userRoutes = require("./routes"); // Ensure correct path
-app.use("/api", userRoutes); // API routes prefixed with /api
-
-// Root route
-app.get("/", (req, res) => {
-  const dbStatus = mongoose.connection.readyState === 1 ? "Connected" : "Not Connected";
-  res.json({ message: "Welcome to the API!", databaseStatus: dbStatus });
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-});
+app.listen(5000, () => console.log("Server started on port 5000"));
