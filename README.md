@@ -19,6 +19,9 @@ The Most Useless Life Hacks is a crowdsourced platform where users submit so-cal
 - **Deployment:** Vercel (Frontend), Render (Backend)  
 - **API Testing:** Bruno  
 
+
 netlify link = https://velvety-toffee-d4f1de.netlify.app/
 
 
+=======
+## Deployed link : https://s86-the-most-useless-life-hacks-1.onrender.com
