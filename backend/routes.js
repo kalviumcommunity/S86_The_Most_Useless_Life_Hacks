@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Entity = require("./models/entity"); // <-- Make sure the path is correct
+const Entity = require("./models/entity");
 
 // Test route
 router.get("/", (req, res) => {
   res.send("Hello from ASAP App");
 });
 
-// POST route to add a new entity
+// Add entity
 router.post("/api/entities", async (req, res) => {
   try {
     const { name, type } = req.body;
@@ -20,7 +20,7 @@ router.post("/api/entities", async (req, res) => {
   }
 });
 
-// GET route to retrieve all entities
+// Get all entities
 router.get("/api/entities", async (req, res) => {
   try {
     const entities = await Entity.find();
@@ -28,6 +28,44 @@ router.get("/api/entities", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching entities" });
+  }
+});
+
+// Get single entity by ID
+router.get("/api/entities/:id", async (req, res) => {
+  try {
+    const entity = await Entity.findById(req.params.id);
+    res.status(200).json(entity);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching entity" });
+  }
+});
+
+// Update entity
+router.put("/api/entities/:id", async (req, res) => {
+  try {
+    const { name, type } = req.body;
+    const updated = await Entity.findByIdAndUpdate(
+      req.params.id,
+      { name, type },
+      { new: true }
+    );
+    res.status(200).json(updated);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating entity" });
+  }
+});
+
+// Delete entity
+router.delete("/api/entities/:id", async (req, res) => {
+  try {
+    await Entity.findByIdAndDelete(req.params.id);
+    res.status(204).send();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error deleting entity" });
   }
 });
 
