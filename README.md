@@ -18,3 +18,7 @@ The Most Useless Life Hacks is a crowdsourced platform where users submit so-cal
 - **Authentication:** Firebase Auth  
 - **Deployment:** Vercel (Frontend), Render (Backend)  
 - **API Testing:** Bruno  
+
+velvety-toffee-d4f1de.netlify.app
+
+
