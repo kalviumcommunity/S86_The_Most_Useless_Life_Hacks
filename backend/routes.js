@@ -1,4 +1,5 @@
 const express = require("express");
+const { body, validationResult } = require("express-validator");
 const router = express.Router();
 const Entity = require("./models/entity");
 
@@ -7,18 +8,30 @@ router.get("/", (req, res) => {
   res.send("Hello from ASAP App");
 });
 
-// Add entity
-router.post("/api/entities", async (req, res) => {
-  try {
-    const { name, type } = req.body;
-    const newEntity = new Entity({ name, type });
-    const savedEntity = await newEntity.save();
-    res.status(201).json(savedEntity);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error saving entity" });
+// Add entity with validation
+router.post(
+  "/api/entities",
+  [
+    body("name").notEmpty().withMessage("Name is required"),
+    body("type").notEmpty().withMessage("Type is required")
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const { name, type } = req.body;
+      const newEntity = new Entity({ name, type });
+      const savedEntity = await newEntity.save();
+      res.status(201).json(savedEntity);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error saving entity" });
+    }
   }
-});
+);
 
 // Get all entities
 router.get("/api/entities", async (req, res) => {
